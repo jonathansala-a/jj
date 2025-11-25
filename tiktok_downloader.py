@@ -91,7 +91,7 @@ def download_tiktok_video(url: str, output_path: str = "downloads") -> None:
 
 if __name__ == "__main__":
     # Example URL for testing
-    tiktok_url = "https://www.tiktok.com/@tiktok/video/7300729731454170369"
+    tiktok_url = "https://vt.tiktok.com/ZSfUwfKR4/"
     
     if len(sys.argv) > 1:
         tiktok_url = sys.argv[1]
