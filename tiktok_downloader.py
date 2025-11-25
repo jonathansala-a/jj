@@ -2,9 +2,8 @@ import yt_dlp
 import os
 import sys
 
-# --- FIX: Custom Logger Class to satisfy yt-dlp requirements ---
-# yt-dlp expects an object with .debug(), .warning(), and .error() methods.
-# This class provides those methods, resolving the "'function' object has no attribute 'debug'" error.
+# --- Custom Logger Class to satisfy yt-dlp requirements ---
+# This was fixed in the last turn and must remain to prevent the 'debug' error.
 class YtDlpLogger:
     """A minimal custom logger for yt-dlp."""
     def debug(self, msg):
@@ -18,7 +17,6 @@ class YtDlpLogger:
         print(f"⚠️ WARNING: {msg}")
 
     def error(self, msg):
-        # Print error messages clearly
         print(f"❌ ERROR: {msg}")
 
 # --- Main download function ---
@@ -51,15 +49,16 @@ def download_tiktok_video(url: str, output_path: str = "downloads") -> None:
         'noplaylist': True,
         'skip_download': False,
         
-        # Mimic a mobile user agent for potentially better stream access
+        # User Agent and Referer are set to mimic a mobile browser
         'http_headers': {
             'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1',
             'Referer': 'https://www.tiktok.com/',
         },
         
-        # We manage output via the custom logger
+        # Quiet is False to allow our custom logger to show output
         'quiet': False, 
         
+        # Post-processing steps (adjust as needed)
         'postprocessors': [{
             'key': 'FFmpegMetadata',
             'add_metadata': False,
